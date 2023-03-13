@@ -27,9 +27,6 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Post
 
-    def create(self, validated_data):
-        return Post.objects.create(**validated_data)
-
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(slug_field='username',
@@ -39,9 +36,6 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'author', 'text', 'created', 'post')
         model = Comment
-
-    def create(self, validated_data):
-        return Comment.objects.create(**validated_data)
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -77,9 +71,6 @@ class FollowSerializer(serializers.ModelSerializer):
                 'You can`t follow to yourself!'
             )
         return data
-
-    def create(self, validated_data):
-        return Follow.objects.create(**validated_data)
 
 
 class UserSerializer(serializers.ModelSerializer):

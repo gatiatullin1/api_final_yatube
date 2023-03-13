@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework import viewsets, mixins, permissions, filters
+from rest_framework import viewsets, permissions, filters
 from rest_framework.pagination import LimitOffsetPagination
 
 from posts.models import Post, User, Group
@@ -22,16 +22,7 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-class RetrieveGroupViewSet(mixins.ListModelMixin,
-                           mixins.RetrieveModelMixin,
-                           viewsets.GenericViewSet):
-    """
-    ViewSet for GET-requests processing for groups.
-    """
-    pass
-
-
-class GroupViewSet(RetrieveGroupViewSet):
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     pagination_class = None
