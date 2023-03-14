@@ -25,13 +25,11 @@ class PostViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    pagination_class = None
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (IsAuthorOrReadOnly,)
-    pagination_class = None
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')
@@ -53,7 +51,6 @@ class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,)
-    pagination_class = None
     search_fields = ('following__username',)
 
     def get_queryset(self):
